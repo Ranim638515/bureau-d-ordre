@@ -1,0 +1,11 @@
+<div class="document-list">
+  <h2>Liste des documents</h2>
+
+  <p *ngIf="documents().length === 0">Aucun document pour le moment.</p>
+
+  <ul>
+    <li *ngFor="let doc of documents()">
+      <strong>{{ doc.nomFichier }}</strong> — statut : {{ doc.statut }}
+    </li>
+  </ul>
+</div>

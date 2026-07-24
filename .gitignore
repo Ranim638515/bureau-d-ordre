@@ -1,0 +1,29 @@
+# Backend (Spring Boot / Maven)
+backend/target/
+backend/.mvn/
+backend/*.class
+backend/HELP.md
+
+# Frontend (Angular)
+bureau-ordre-frontend/node_modules/
+bureau-ordre-frontend/dist/
+bureau-ordre-frontend/.angular/
+bureau-ordre-frontend/*.log
+
+# OCR Service (Python)
+ocr-service/__pycache__/
+ocr-service/*.pyc
+ocr-service/venv/
+ocr-service/.venv/
+
+# Environnement / secrets
+.env
+*.env
+application-secrets.properties
+
+# Éditeurs / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+backend/bureau-ordre-backend/src/main/resources/application.properties

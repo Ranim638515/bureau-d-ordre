@@ -1,0 +1,5 @@
+<h1>Bureau d'Ordre Intelligent</h1>
+
+<app-login *ngIf="!documentService.loggedIn()"></app-login>
+
+<app-document-list *ngIf="documentService.loggedIn()"></app-document-list>

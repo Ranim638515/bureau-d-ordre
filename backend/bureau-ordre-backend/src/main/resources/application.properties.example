@@ -1,0 +1,14 @@
+spring.application.name=bureau-ordre-backend
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/bureau_ordre
+spring.datasource.username=postgres
+spring.datasource.password=CHANGE_ME
+
+spring.jpa.hibernate.ddl-auto=validate
+spring.jpa.show-sql=true
+
+spring.liquibase.enabled=true
+spring.liquibase.change-log=classpath:db/changelog/db.changelog-master.xml
+server.port=8080
+jwt.secret=CHANGE_ME_SECRET_KEY_MIN_32_CHARS
+jwt.expiration=86400000
