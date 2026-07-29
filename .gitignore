@@ -27,3 +27,7 @@ application-secrets.properties
 .DS_Store
 Thumbs.db
 backend/bureau-ordre-backend/src/main/resources/application.properties
+backend/bureau-ordre-backend/uploads/
+backend/bureau-ordre-backend/facture-test.png
+backend/facture-test.png
+facture-test.png

@@ -1,0 +1,17 @@
+<div class="kanban-board">
+  <h2>Kanban des documents</h2>
+
+  <div class="colonnes">
+    <div class="colonne" *ngFor="let colonne of colonnes">
+      <h3>{{ colonne }}</h3>
+      <span class="compteur">{{ documentsParStatut()[colonne].length }}</span>
+
+      <div class="carte" *ngFor="let doc of documentsParStatut()[colonne]">
+        <strong>{{ doc.nomFichier }}</strong>
+        <p class="date">{{ doc.dateUpload | date:'short' }}</p>
+      </div>
+
+      <p *ngIf="documentsParStatut()[colonne].length === 0" class="vide">Aucun document</p>
+    </div>
+  </div>
+</div>

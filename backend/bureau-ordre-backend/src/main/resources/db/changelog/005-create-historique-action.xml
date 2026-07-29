@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="005-create-historique-action" author="ranim">
+        <createTable tableName="historique_action">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="document_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="statut_precedent" type="varchar(50)"/>
+            <column name="statut_suivant" type="varchar(50)"/>
+            <column name="evenement" type="varchar(50)"/>
+            <column name="date_action" type="timestamp"/>
+        </createTable>
+        <addForeignKeyConstraint
+            baseTableName="historique_action"
+            baseColumnNames="document_id"
+            referencedTableName="document"
+            referencedColumnNames="id"
+            constraintName="fk_historique_document"/>
+    </changeSet>
+
+</databaseChangeLog>

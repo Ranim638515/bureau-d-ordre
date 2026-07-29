@@ -2,4 +2,8 @@
 
 <app-login *ngIf="!documentService.loggedIn()"></app-login>
 
-<app-document-list *ngIf="documentService.loggedIn()"></app-document-list>
+<ng-container *ngIf="documentService.loggedIn()">
+  <app-upload (uploaded)="onUploaded()"></app-upload>
+  <app-document-list></app-document-list>
+  <app-kanban></app-kanban>
+</ng-container>

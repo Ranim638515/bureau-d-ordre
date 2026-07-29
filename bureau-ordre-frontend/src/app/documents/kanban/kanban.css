@@ -1,0 +1,60 @@
+.kanban-board {
+  margin-top: 30px;
+}
+
+.colonnes {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.colonne {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+.colonne h3 {
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  color: #374151;
+}
+
+.compteur {
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
+.carte {
+  background-color: white;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.carte strong {
+  display: block;
+  font-size: 13px;
+  word-break: break-word;
+}
+
+.date {
+  font-size: 11px;
+  color: #6b7280;
+  margin: 4px 0 0 0;
+}
+
+.vide {
+  font-size: 12px;
+  color: #9ca3af;
+  font-style: italic;
+}

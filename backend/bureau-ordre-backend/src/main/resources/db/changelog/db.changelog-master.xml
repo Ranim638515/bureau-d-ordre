@@ -8,5 +8,7 @@
     <include file="db/changelog/001-create-document.xml"/>
     <include file="db/changelog/002-create-donnees-facture.xml"/>
     <include file="db/changelog/003-create-user.xml"/>
+    <include file="db/changelog/004-add-type-document.xml"/>
+    <include file="db/changelog/005-create-historique-action.xml"/>
 
 </databaseChangeLog>

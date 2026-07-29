@@ -22,4 +22,5 @@ public class DonneesFacture {
     private BigDecimal montantHt;
     private BigDecimal montantTtc;
     private BigDecimal scoreConfiance;
+    private String typeDocument;
 }
