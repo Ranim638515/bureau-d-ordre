@@ -46,4 +46,21 @@ export class DocumentService {
     formData.append('file', file);
     return this.http.post<DocumentModel>(`${this.apiUrl}/upload`, formData, { headers: this.getAuthHeaders() });
   }
+  getDonnees(documentId: number): Observable<DonneesFactureModel> {
+  return this.http.get<DonneesFactureModel>(`${this.apiUrl}/${documentId}/donnees`, { headers: this.getAuthHeaders() });
+}
+
+corriger(documentId: number, corrections: Partial<DonneesFactureModel>): Observable<DonneesFactureModel> {
+  return this.http.patch<DonneesFactureModel>(`${this.apiUrl}/${documentId}/corriger`, corrections, { headers: this.getAuthHeaders() });
+}
+}
+
+export interface DonneesFactureModel {
+  id: number;
+  numFacture: string | null;
+  fournisseur: string | null;
+  montantHt: number | null;
+  montantTtc: number | null;
+  scoreConfiance: number | null;
+  typeDocument: string | null;
 }

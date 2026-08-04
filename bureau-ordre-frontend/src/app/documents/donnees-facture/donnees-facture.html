@@ -1,0 +1,45 @@
+<div class="donnees-facture" *ngIf="donnees() as d">
+  <div class="header">
+    <h4>Données extraites</h4>
+    <span class="badge" [class]="couleurConfiance()">
+      Confiance : {{ (d.scoreConfiance ?? 0) * 100 | number:'1.0-0' }}%
+    </span>
+  </div>
+
+  <div class="champs" *ngIf="!modeEdition()">
+    <div class="champ"><label>N° Facture</label><span>{{ d.numFacture || '—' }}</span></div>
+    <div class="champ"><label>Fournisseur</label><span>{{ d.fournisseur || '—' }}</span></div>
+    <div class="champ"><label>Montant HT</label><span>{{ d.montantHt ?? '—' }} EUR</span></div>
+    <div class="champ"><label>Montant TTC</label><span>{{ d.montantTtc ?? '—' }} EUR</span></div>
+    <div class="champ"><label>Type</label><span>{{ d.typeDocument || '—' }}</span></div>
+  </div>
+
+  <div class="champs edition" *ngIf="modeEdition()">
+    <div class="champ">
+      <label>N° Facture</label>
+      <input type="text" [(ngModel)]="brouillon.numFacture">
+    </div>
+    <div class="champ">
+      <label>Fournisseur</label>
+      <input type="text" [(ngModel)]="brouillon.fournisseur">
+    </div>
+    <div class="champ">
+      <label>Montant HT</label>
+      <input type="number" [(ngModel)]="brouillon.montantHt">
+    </div>
+    <div class="champ">
+      <label>Montant TTC</label>
+      <input type="number" [(ngModel)]="brouillon.montantTtc">
+    </div>
+  </div>
+
+  <div class="actions">
+    <button *ngIf="!modeEdition()" (click)="activerEdition()">Corriger</button>
+    <ng-container *ngIf="modeEdition()">
+      <button (click)="enregistrer()" class="primaire">Enregistrer</button>
+      <button (click)="annuler()">Annuler</button>
+    </ng-container>
+  </div>
+
+  <p *ngIf="messageSucces()" class="succes">{{ messageSucces() }}</p>
+</div>

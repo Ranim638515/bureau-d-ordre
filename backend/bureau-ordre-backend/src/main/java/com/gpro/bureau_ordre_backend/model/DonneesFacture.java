@@ -23,4 +23,7 @@ public class DonneesFacture {
     private BigDecimal montantTtc;
     private BigDecimal scoreConfiance;
     private String typeDocument;
+    private Boolean doublonDetecte = false;
+    private String siret;
+    private Boolean siretValide = false;
 }

@@ -33,7 +33,7 @@ public class DocumentController {
 
     @PostMapping("/upload")
     public Document upload(@RequestParam("file") MultipartFile file) throws Exception {
-        // 1. Sauvegarde du fichier (inchangé depuis le Sprint 1)
+        // 1. Sauvegarde du fichier
         new File(UPLOAD_DIR).mkdirs();
         String path = UPLOAD_DIR + System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Files.write(Paths.get(path), file.getBytes());
@@ -53,6 +53,10 @@ public class DocumentController {
             donnees.setNumFacture((String) resultatOcr.get("num_facture"));
             donnees.setFournisseur((String) resultatOcr.get("fournisseur"));
             donnees.setTypeDocument((String) resultatOcr.get("type_document"));
+            donnees.setSiret((String) resultatOcr.get("siret"));
+            if (resultatOcr.get("siret_valide") != null) {
+                donnees.setSiretValide((Boolean) resultatOcr.get("siret_valide"));
+            }
 
             if (resultatOcr.get("montant_ht") != null) {
                 donnees.setMontantHt(BigDecimal.valueOf(((Number) resultatOcr.get("montant_ht")).doubleValue()));
@@ -63,6 +67,15 @@ public class DocumentController {
             if (resultatOcr.get("confidence") != null) {
                 donnees.setScoreConfiance(BigDecimal.valueOf(((Number) resultatOcr.get("confidence")).doubleValue()));
             }
+
+            // Détection de doublon : même fournisseur + même montant TTC
+            boolean doublonDetecte = false;
+            if (donnees.getFournisseur() != null && donnees.getMontantTtc() != null) {
+                List<DonneesFacture> existants = donneesFactureRepository
+                    .findByFournisseurAndMontantTtc(donnees.getFournisseur(), donnees.getMontantTtc());
+                doublonDetecte = !existants.isEmpty();
+            }
+            donnees.setDoublonDetecte(doublonDetecte);
 
             donneesFactureRepository.save(donnees);
 

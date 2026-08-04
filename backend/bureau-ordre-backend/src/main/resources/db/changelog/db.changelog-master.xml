@@ -10,5 +10,7 @@
     <include file="db/changelog/003-create-user.xml"/>
     <include file="db/changelog/004-add-type-document.xml"/>
     <include file="db/changelog/005-create-historique-action.xml"/>
+    <include file="db/changelog/006-add-doublon-detecte.xml"/>
+    <include file="db/changelog/007-add-siret.xml"/>
 
 </databaseChangeLog>

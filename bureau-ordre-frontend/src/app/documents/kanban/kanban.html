@@ -6,9 +6,16 @@
       <h3>{{ colonne }}</h3>
       <span class="compteur">{{ documentsParStatut()[colonne].length }}</span>
 
-      <div class="carte" *ngFor="let doc of documentsParStatut()[colonne]">
-        <strong>{{ doc.nomFichier }}</strong>
-        <p class="date">{{ doc.dateUpload | date:'short' }}</p>
+      <div class="carte-wrapper" *ngFor="let doc of documentsParStatut()[colonne]">
+        <div class="carte" (click)="toggleCarte(doc.id)">
+          <strong>{{ doc.nomFichier }}</strong>
+          <p class="date">{{ doc.dateUpload | date:'short' }}</p>
+        </div>
+
+        <app-donnees-facture
+          *ngIf="documentOuvertId() === doc.id"
+          [documentId]="doc.id">
+        </app-donnees-facture>
       </div>
 
       <p *ngIf="documentsParStatut()[colonne].length === 0" class="vide">Aucun document</p>

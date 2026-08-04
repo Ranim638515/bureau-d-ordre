@@ -1,0 +1,83 @@
+.donnees-facture {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 8px;
+  font-size: 13px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.header h4 {
+  margin: 0;
+  font-size: 13px;
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+}
+
+.badge.vert { background-color: #16a34a; }
+.badge.orange { background-color: #f59e0b; }
+.badge.rouge { background-color: #dc2626; }
+
+.champs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.champ label {
+  display: block;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.champ span {
+  font-weight: 500;
+}
+
+.champ input {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  padding: 5px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.actions button.primaire {
+  background-color: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.succes {
+  color: #16a34a;
+  font-size: 12px;
+  margin-top: 6px;
+}

@@ -5,6 +5,7 @@ import io
 import re
 import cv2
 import numpy as np
+import httpx
 
 app = FastAPI()
 
@@ -60,11 +61,11 @@ def compute_confidence(data: dict) -> float:
 async def extract(file: UploadFile):
     contents = await file.read()
     image = Image.open(io.BytesIO(contents))
-
-    # Prétraitement avant l'OCR
     image_traitee = preprocess_image(image)
-
     texte_brut = pytesseract.image_to_string(image_traitee, lang='fra')
+
+    siret = extract_siret(texte_brut)
+    siret_valide = valider_siret(siret) if siret else False
 
     data = {
         "num_facture": extract_num_facture(texte_brut),
@@ -73,6 +74,8 @@ async def extract(file: UploadFile):
         "montant_ht": extract_montant(texte_brut, "Montant HT"),
         "montant_ttc": extract_montant(texte_brut, "Montant TTC"),
         "type_document": classify_document(texte_brut),
+        "siret": siret,
+        "siret_valide": siret_valide,
     }
     data["confidence"] = compute_confidence(data)
     data["texte_brut"] = texte_brut
@@ -146,3 +149,30 @@ def preprocess_image(image: Image.Image) -> Image.Image:
 
     # Reconvertir en image PIL pour que pytesseract puisse la lire
     return Image.fromarray(thresholded)
+
+
+def extract_siret(texte: str) -> str | None:
+    match = re.search(r"SIRET\s*:?\s*([\d\s]{9,25})", texte, re.IGNORECASE)
+    if match:
+        # re.sub avec \s supprime TOUS les espaces blancs (espaces, tabulations, retours à la ligne)
+        siret = re.sub(r"\s", "", match.group(1))
+        if len(siret) >= 14:
+            siret = siret[:14]  # on garde exactement les 14 premiers chiffres
+            if siret.isdigit():
+                return siret
+    return None
+
+def valider_siret(siret: str) -> bool:
+    if not siret:
+        return False
+    try:
+        response = httpx.get(
+            f"https://recherche-entreprises.api.gouv.fr/search?q={siret}",
+            timeout=5.0
+        )
+        data = response.json()
+        # Si l'API renvoie au moins un résultat, le SIRET existe
+        return data.get("total_results", 0) > 0
+    except Exception as e:
+        print(f"Erreur validation SIRET : {e}")
+        return False

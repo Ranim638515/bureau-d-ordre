@@ -1,17 +1,18 @@
 import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DocumentService, DocumentModel } from '../../services/document';
+import { DonneesFactureComponent } from '../donnees-facture/donnees-facture';
 
 @Component({
   selector: 'app-kanban',
-  imports: [CommonModule],
+  imports: [CommonModule, DonneesFactureComponent],
   templateUrl: './kanban.html',
   styleUrl: './kanban.css'
 })
 export class Kanban implements OnInit {
   documents = signal<DocumentModel[]>([]);
+  documentOuvertId = signal<number | null>(null);
 
-  // Liste ordonnée des colonnes à afficher (dans l'ordre du workflow)
   colonnes = [
     'RECU',
     'OCR_TERMINE',
@@ -23,7 +24,6 @@ export class Kanban implements OnInit {
     'INSERE_ERP'
   ];
 
-  // Regroupe automatiquement les documents par statut à chaque changement de `documents`
   documentsParStatut = computed(() => {
     const groupes: Record<string, DocumentModel[]> = {};
     for (const colonne of this.colonnes) {
@@ -43,5 +43,9 @@ export class Kanban implements OnInit {
       next: (data) => this.documents.set(data),
       error: (err) => console.error('Erreur lors du chargement des documents', err)
     });
+  }
+
+  toggleCarte(id: number): void {
+    this.documentOuvertId.set(this.documentOuvertId() === id ? null : id);
   }
 }
